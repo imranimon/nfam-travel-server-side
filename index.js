@@ -17,6 +17,9 @@ async function run() {
     try {
         await client.connect();
         console.log('Database Connected');
+        app.get('/db', (req, res) => {
+            res.send('Database connected')
+        })
         // const database = client.db("NFamTravel");
         // const serviceCollection = database.collection("services");
         // const doc = {
