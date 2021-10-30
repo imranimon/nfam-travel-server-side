@@ -48,6 +48,20 @@ async function run() {
             res.json(result)
         })
 
+        app.post('/order/:id', async (req, res) => {
+            const id = req.params.id;
+            const updatedOrder = req.body;
+            const query = { _id: ObjectId(id) }
+            const options = { upsert: true };
+            const updateOrder = {
+                $set: {
+                    status: updatedOrder.status
+                },
+            };
+            const result = await orderCollection.updateOne(query, updateOrder, options)
+            res.json(result)
+        })
+
         app.get('/orders', async (req, res) => {
             const cursor = orderCollection.find({})
             const orders = await cursor.toArray()
@@ -62,6 +76,12 @@ async function run() {
             res.json(orders);
         })
 
+        app.delete('/orders/:id', async (req, res) => {
+            const id = req.params.id;
+            const query = { _id: ObjectId(id) }
+            const result = await orderCollection.deleteOne(query);
+            res.json(result);
+        })
 
 
 
