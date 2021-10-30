@@ -40,6 +40,12 @@ async function run() {
             res.json(result);
         })
 
+        app.post('/services', async (req, res) => {
+            const service = req.body;
+            const result = await serviceCollection.insertOne(service);
+            res.json(result)
+        })
+
 
         //Order related api
         app.post('/order', async (req, res) => {
